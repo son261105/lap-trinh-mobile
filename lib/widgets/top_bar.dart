@@ -18,6 +18,9 @@ class TopBar extends StatelessWidget {
         children: [
           // Trái: logo
           Align(alignment: Alignment.centerLeft, child: _Logo()),
+
+          // Giữa: nút trang chủ
+          Center(child: _HomeButton()),
         ],
       ),
     );
@@ -37,6 +40,28 @@ class _Logo extends StatelessWidget {
         shape: BoxShape.circle,
       ),
       child: const Icon(Icons.graphic_eq, color: Colors.black, size: 24),
+    );
+  }
+}
+
+class _HomeButton extends StatelessWidget {
+  const _HomeButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: AppColors.surface,
+      shape: const CircleBorder(),
+      child: InkWell(
+        customBorder: const CircleBorder(),
+        hoverColor: AppColors.surfaceHover,
+        onTap: () {},
+        child: const SizedBox(
+          width: 48,
+          height: 48,
+          child: Icon(Icons.home_outlined, color: Colors.white, size: 28),
+        ),
+      ),
     );
   }
 }
