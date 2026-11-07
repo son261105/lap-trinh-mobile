@@ -21,19 +21,29 @@ class TopBar extends StatelessWidget {
 
           // Giữa: nút trang chủ
           // Giữa: nút trang chủ + thanh tìm kiếm
+          // Giữa: nút trang chủ + thanh tìm kiếm + nút Premium
           Center(
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 560),
+              constraints: BoxConstraints(maxWidth: 760),
               child: Row(
                 children: [
                   _HomeButton(),
                   SizedBox(width: 8),
                   Expanded(child: _SearchBar()),
+                  SizedBox(width: 16),
+                  _PremiumButton(),
                 ],
               ),
             ),
           ),
-          Align(alignment: Alignment.centerRight, child: _Avatar()),
+          // Phải: avatar người dùng + nút cài đặt
+          Align(
+            alignment: Alignment.centerRight,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [_Avatar(), SizedBox(width: 8), _SettingsButton()],
+            ),
+          ),
         ],
       ),
     );
@@ -125,6 +135,56 @@ class _Avatar extends StatelessWidget {
       child: Text(
         'S',
         style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+}
+
+class _SettingsButton extends StatelessWidget {
+  const _SettingsButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      shape: const CircleBorder(),
+      child: InkWell(
+        customBorder: const CircleBorder(),
+        hoverColor: AppColors.surfaceHover,
+        onTap: () {},
+        child: const SizedBox(
+          width: 44,
+          height: 44,
+          child: Icon(Icons.settings_outlined, color: AppColors.textSecondary),
+        ),
+      ),
+    );
+  }
+}
+
+class _PremiumButton extends StatelessWidget {
+  const _PremiumButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.white,
+      shape: const StadiumBorder(),
+      child: InkWell(
+        customBorder: const StadiumBorder(),
+        hoverColor: Colors.black12,
+        onTap: () {},
+        child: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+          child: Text(
+            'Khám phá Premium',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 13,
+            ),
+          ),
+        ),
       ),
     );
   }
