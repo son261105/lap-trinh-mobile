@@ -13,14 +13,26 @@ class TopBar extends StatelessWidget {
         color: AppColors.background,
         border: Border(bottom: BorderSide(color: AppColors.surface)),
       ),
-      child: const Stack(
+      child: Stack(
         alignment: Alignment.center,
         children: [
           // Trái: logo
           Align(alignment: Alignment.centerLeft, child: _Logo()),
 
           // Giữa: nút trang chủ
-          Center(child: _HomeButton()),
+          // Giữa: nút trang chủ + thanh tìm kiếm
+          Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 560),
+              child: Row(
+                children: [
+                  _HomeButton(),
+                  SizedBox(width: 8),
+                  Expanded(child: _SearchBar()),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -60,6 +72,41 @@ class _HomeButton extends StatelessWidget {
           width: 48,
           height: 48,
           child: Icon(Icons.home_outlined, color: Colors.white, size: 28),
+        ),
+      ),
+    );
+  }
+}
+
+class _SearchBar extends StatelessWidget {
+  const _SearchBar();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 48,
+      child: TextField(
+        style: const TextStyle(color: Colors.white),
+        cursorColor: Colors.white,
+        decoration: InputDecoration(
+          hintText: 'Bạn muốn phát nội dung gì?',
+          hintStyle: const TextStyle(color: AppColors.textSecondary),
+          prefixIcon: const Icon(Icons.search, color: AppColors.textSecondary),
+          filled: true,
+          fillColor: AppColors.surface,
+          contentPadding: EdgeInsets.zero,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(500),
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(500),
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(500),
+            borderSide: const BorderSide(color: Colors.white, width: 2),
+          ),
         ),
       ),
     );
