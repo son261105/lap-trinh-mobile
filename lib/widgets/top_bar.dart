@@ -33,6 +33,7 @@ class TopBar extends StatelessWidget {
               ),
             ),
           ),
+          Align(alignment: Alignment.centerRight, child: _Avatar()),
         ],
       ),
     );
@@ -108,6 +109,22 @@ class _SearchBar extends StatelessWidget {
             borderSide: const BorderSide(color: Colors.white, width: 2),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _Avatar extends StatelessWidget {
+  const _Avatar();
+
+  @override
+  Widget build(BuildContext context) {
+    return const CircleAvatar(
+      radius: 20,
+      backgroundColor: AppColors.avatar,
+      child: Text(
+        'S',
+        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
       ),
     );
   }
