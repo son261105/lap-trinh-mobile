@@ -6,4 +6,5 @@ class AppColors {
   static const surfaceHover = Color(0xFF2A2A2A);
   static const textSecondary = Color(0xFFB3B3B3);
   static const avatar = Color(0xFF3B82F6);
+  static const sidebar = Color(0xFF121212);
 }
