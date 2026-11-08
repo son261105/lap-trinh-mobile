@@ -9,10 +9,7 @@ class PlayerBar extends StatelessWidget {
     return Container(
       height: 90,
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: const BoxDecoration(
-        color: AppColors.background,
-        border: Border(top: BorderSide(color: AppColors.surface)),
-      ),
+      color: AppColors.background,
       child: const Row(
         children: [
           Expanded(
@@ -36,7 +33,7 @@ class _SongInfo extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(6),
           child: Image.asset(
-            'imgs/NhacChill.jpg',
+            'imgs/NoiNayCoAnh.jpg',
             width: 56,
             height: 56,
             fit: BoxFit.cover,
@@ -69,19 +66,36 @@ class _SongInfo extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 16),
+        const _LikeButton(),
         IconButton(
           onPressed: () {},
-          icon: const Icon(Icons.favorite_border),
-          color: Colors.white,
-          iconSize: 22,
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.more_horiz),
+          tooltip: 'Thêm vào playlist',
+          icon: const Icon(Icons.add_circle_outline),
           color: Colors.white,
           iconSize: 22,
         ),
       ],
+    );
+  }
+}
+
+class _LikeButton extends StatefulWidget {
+  const _LikeButton();
+
+  @override
+  State<_LikeButton> createState() => _LikeButtonState();
+}
+
+class _LikeButtonState extends State<_LikeButton> {
+  bool _liked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () => setState(() => _liked = !_liked),
+      icon: Icon(_liked ? Icons.favorite : Icons.favorite_border),
+      color: _liked ? const Color(0xFFFF4D8D) : Colors.white,
+      iconSize: 22,
     );
   }
 }
