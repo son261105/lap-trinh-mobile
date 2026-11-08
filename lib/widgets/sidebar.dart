@@ -18,6 +18,24 @@ class Sidebar extends StatelessWidget {
           _NavItem(icon: Icons.home_filled, label: 'Trang chủ', selected: true),
           SizedBox(height: 4),
           _NavItem(icon: Icons.person_outline, label: 'Của Tôi'),
+          SizedBox(height: 28),
+          _SectionTitle('THƯ VIỆN'),
+          SizedBox(height: 8),
+          _LibraryItem(
+            icon: Icons.favorite,
+            color: Color(0xFFFF4D8D),
+            label: 'Bài hát yêu thích',
+          ),
+          _LibraryItem(
+            icon: Icons.history,
+            color: Color(0xFF3B82F6),
+            label: 'Nghe gần đây',
+          ),
+          _LibraryItem(
+            icon: Icons.mic,
+            color: Color(0xFF8B5CF6),
+            label: 'Nghệ sĩ yêu thích',
+          ),
         ],
       ),
     );
@@ -90,6 +108,79 @@ class _NavItem extends StatelessWidget {
                   color: Colors.white,
                   fontSize: 15,
                   fontWeight: selected ? FontWeight.bold : FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SectionTitle extends StatelessWidget {
+  final String text;
+
+  const _SectionTitle(this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white70,
+          fontSize: 13,
+          fontWeight: FontWeight.w900,
+          letterSpacing: 1,
+        ),
+      ),
+    );
+  }
+}
+
+class _LibraryItem extends StatelessWidget {
+  final IconData icon;
+  final Color color;
+  final String label;
+
+  const _LibraryItem({
+    required this.icon,
+    required this.color,
+    required this.label,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(8),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8),
+        hoverColor: AppColors.surface,
+        onTap: () {},
+        child: Container(
+          height: 52,
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Row(
+            children: [
+              Container(
+                width: 36,
+                height: 36,
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Icon(icon, color: Colors.white, size: 20),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                label,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ],
