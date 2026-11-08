@@ -16,9 +16,6 @@ class TopBar extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          // Trái: logo
-          Align(alignment: Alignment.centerLeft, child: _Logo()),
-
           // Giữa: nút trang chủ
           // Giữa: nút trang chủ + thanh tìm kiếm
           // Giữa: nút trang chủ + thanh tìm kiếm + nút Premium
@@ -50,23 +47,6 @@ class TopBar extends StatelessWidget {
   }
 }
 
-class _Logo extends StatelessWidget {
-  const _Logo();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 40,
-      height: 40,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        shape: BoxShape.circle,
-      ),
-      child: const Icon(Icons.graphic_eq, color: Colors.black, size: 24),
-    );
-  }
-}
-
 class _HomeButton extends StatelessWidget {
   const _HomeButton();
 
@@ -80,9 +60,9 @@ class _HomeButton extends StatelessWidget {
         hoverColor: AppColors.surfaceHover,
         onTap: () {},
         child: const SizedBox(
-          width: 48,
-          height: 48,
-          child: Icon(Icons.home_outlined, color: Colors.white, size: 28),
+          width: 40,
+          height: 40,
+          child: Icon(Icons.home_outlined, color: Colors.white, size: 22),
         ),
       ),
     );
@@ -95,14 +75,21 @@ class _SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 48,
+      height: 40,
       child: TextField(
-        style: const TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white, fontSize: 14),
         cursorColor: Colors.white,
         decoration: InputDecoration(
           hintText: 'Bạn muốn phát nội dung gì?',
-          hintStyle: const TextStyle(color: AppColors.textSecondary),
-          prefixIcon: const Icon(Icons.search, color: AppColors.textSecondary),
+          hintStyle: const TextStyle(
+            color: AppColors.textSecondary,
+            fontSize: 14,
+          ),
+          prefixIcon: const Icon(
+            Icons.search,
+            color: AppColors.textSecondary,
+            size: 20,
+          ),
           filled: true,
           fillColor: AppColors.surface,
           contentPadding: EdgeInsets.zero,
