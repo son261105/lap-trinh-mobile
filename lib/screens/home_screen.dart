@@ -11,32 +11,37 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: AppColors.background,
-      body: Column(
-        children: [
-          Expanded(
-            child: Row(
-              children: [
-                Sidebar(),
-                Expanded(
-                  child: Column(
-                    children: [
-                      TopBar(),
-                      Expanded(
-                        child: Center(
-                          child: Text(
-                            'Nội dung chính sẽ nằm ở đây',
-                            style: TextStyle(color: Colors.white54),
+      body: Padding(
+        padding: EdgeInsets.all(8),
+        child: Column(
+          children: [
+            Expanded(
+              child: Row(
+                children: [
+                  Sidebar(),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        TopBar(),
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              'Nội dung chính sẽ nằm ở đây',
+                              style: TextStyle(color: Colors.white54),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          PlayerBar(),
-        ],
+            SizedBox(height: 8),
+            PlayerBar(),
+          ],
+        ),
       ),
     );
   }

@@ -8,8 +8,11 @@ class Sidebar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 280,
-      color: AppColors.sidebar,
       padding: const EdgeInsets.symmetric(horizontal: 20),
+      decoration: BoxDecoration(
+        color: AppColors.sidebar,
+        borderRadius: BorderRadius.circular(8),
+      ),
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -36,7 +39,6 @@ class Sidebar extends StatelessWidget {
             color: Color(0xFF8B5CF6),
             label: 'Nghệ sĩ yêu thích',
           ),
-          SizedBox(height: 8),
           SizedBox(height: 28),
           _SectionTitle('PLAYLIST ĐÃ TẠO', showAdd: true),
           SizedBox(height: 8),
