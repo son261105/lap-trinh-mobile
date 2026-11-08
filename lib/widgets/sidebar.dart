@@ -36,6 +36,20 @@ class Sidebar extends StatelessWidget {
             color: Color(0xFF8B5CF6),
             label: 'Nghệ sĩ yêu thích',
           ),
+          SizedBox(height: 8),
+          SizedBox(height: 28),
+          _SectionTitle('PLAYLIST ĐÃ TẠO', showAdd: true),
+          SizedBox(height: 8),
+          _LibraryItem(
+            color: Color(0xFF0EA5A4),
+            label: 'Nhạc chill',
+            imagePath: 'imgs/NhacChill.jpg',
+          ),
+          _LibraryItem(
+            color: Color(0xFF6D28D9),
+            label: 'Nhạc remix',
+            imagePath: 'imgs/NhacRemix.jpg',
+          ),
         ],
       ),
     );
@@ -120,35 +134,53 @@ class _NavItem extends StatelessWidget {
 
 class _SectionTitle extends StatelessWidget {
   final String text;
+  final bool showAdd;
 
-  const _SectionTitle(this.text);
+  const _SectionTitle(this.text, {this.showAdd = false});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Text(
-        text,
-        style: const TextStyle(
-          color: Colors.white70,
-          fontSize: 13,
-          fontWeight: FontWeight.w900,
-          letterSpacing: 1,
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            text,
+            style: const TextStyle(
+              color: Colors.white70,
+              fontSize: 13,
+              fontWeight: FontWeight.w900,
+              letterSpacing: 1,
+            ),
+          ),
+          if (showAdd)
+            InkWell(
+              borderRadius: BorderRadius.circular(500),
+              onTap: () {},
+              child: const Icon(
+                Icons.add_circle_outline,
+                color: AppColors.textSecondary,
+                size: 20,
+              ),
+            ),
+        ],
       ),
     );
   }
 }
 
 class _LibraryItem extends StatelessWidget {
-  final IconData icon;
+  final IconData? icon;
   final Color color;
   final String label;
+  final String? imagePath;
 
   const _LibraryItem({
-    required this.icon,
+    this.icon,
     required this.color,
     required this.label,
+    this.imagePath,
   });
 
   @override
@@ -168,11 +200,14 @@ class _LibraryItem extends StatelessWidget {
               Container(
                 width: 36,
                 height: 36,
+                clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                   color: color,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(icon, color: Colors.white, size: 20),
+                child: imagePath != null
+                    ? Image.asset(imagePath!, fit: BoxFit.cover)
+                    : Icon(icon, color: Colors.white, size: 20),
               ),
               const SizedBox(width: 12),
               Text(
