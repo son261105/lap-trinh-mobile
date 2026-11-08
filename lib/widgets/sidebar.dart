@@ -16,8 +16,7 @@ class Sidebar extends StatelessWidget {
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _Brand(),
-          SizedBox(height: 24),
+          SizedBox(height: 16),
           _NavItem(icon: Icons.home_filled, label: 'Trang chủ', selected: true),
           SizedBox(height: 4),
           _NavItem(icon: Icons.person_outline, label: 'Của Tôi'),
@@ -51,39 +50,6 @@ class Sidebar extends StatelessWidget {
             color: Color(0xFF6D28D9),
             label: 'Nhạc remix',
             imagePath: 'imgs/NhacRemix.jpg',
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _Brand extends StatelessWidget {
-  const _Brand();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 64,
-      child: Row(
-        children: [
-          Container(
-            width: 32,
-            height: 32,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(Icons.graphic_eq, color: Colors.black, size: 20),
-          ),
-          const SizedBox(width: 8),
-          const Text(
-            'MusicChill',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
           ),
         ],
       ),

@@ -9,16 +9,11 @@ class TopBar extends StatelessWidget {
     return Container(
       height: 64,
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: const BoxDecoration(
-        color: AppColors.background,
-        border: Border(bottom: BorderSide(color: AppColors.surface)),
-      ),
+
       child: Stack(
         alignment: Alignment.center,
         children: [
-          // Giữa: nút trang chủ
-          // Giữa: nút trang chủ + thanh tìm kiếm
-          // Giữa: nút trang chủ + thanh tìm kiếm + nút Premium
+          Align(alignment: Alignment.centerLeft, child: _Brand()),
           Center(
             child: ConstrainedBox(
               constraints: BoxConstraints(maxWidth: 760),
@@ -173,6 +168,37 @@ class _PremiumButton extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _Brand extends StatelessWidget {
+  const _Brand();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 32,
+          height: 32,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+          ),
+          child: const Icon(Icons.graphic_eq, color: Colors.black, size: 20),
+        ),
+        const SizedBox(width: 8),
+        const Text(
+          'MusicChill',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+      ],
     );
   }
 }

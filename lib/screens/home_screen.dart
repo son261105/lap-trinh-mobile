@@ -15,24 +15,25 @@ class HomeScreen extends StatelessWidget {
         padding: EdgeInsets.all(8),
         child: Column(
           children: [
+            TopBar(),
+            SizedBox(height: 8),
             Expanded(
               child: Row(
                 children: [
                   Sidebar(),
                   SizedBox(width: 8),
                   Expanded(
-                    child: Column(
-                      children: [
-                        TopBar(),
-                        Expanded(
-                          child: Center(
-                            child: Text(
-                              'Nội dung chính sẽ nằm ở đây',
-                              style: TextStyle(color: Colors.white54),
-                            ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      child: ColoredBox(
+                        color: AppColors.sidebar,
+                        child: Center(
+                          child: Text(
+                            'Nội dung chính sẽ nằm ở đây',
+                            style: TextStyle(color: Colors.white54),
                           ),
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ],
