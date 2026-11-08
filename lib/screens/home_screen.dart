@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
+import '../widgets/player_bar.dart';
 import '../widgets/sidebar.dart';
 import '../widgets/top_bar.dart';
 
@@ -10,24 +11,31 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: AppColors.background,
-      body: Row(
+      body: Column(
         children: [
-          Sidebar(),
           Expanded(
-            child: Column(
+            child: Row(
               children: [
-                TopBar(),
+                Sidebar(),
                 Expanded(
-                  child: Center(
-                    child: Text(
-                      'Nội dung chính sẽ nằm ở đây',
-                      style: TextStyle(color: Colors.white54),
-                    ),
+                  child: Column(
+                    children: [
+                      TopBar(),
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            'Nội dung chính sẽ nằm ở đây',
+                            style: TextStyle(color: Colors.white54),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
+          PlayerBar(),
         ],
       ),
     );
