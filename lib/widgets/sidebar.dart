@@ -12,7 +12,13 @@ class Sidebar extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [_Brand()],
+        children: [
+          _Brand(),
+          SizedBox(height: 24),
+          _NavItem(icon: Icons.home_filled, label: 'Trang chủ', selected: true),
+          SizedBox(height: 4),
+          _NavItem(icon: Icons.person_outline, label: 'Của Tôi'),
+        ],
       ),
     );
   }
@@ -46,6 +52,49 @@ class _Brand extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _NavItem extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final bool selected;
+
+  const _NavItem({
+    required this.icon,
+    required this.label,
+    this.selected = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: selected ? AppColors.surfaceHover : Colors.transparent,
+      borderRadius: BorderRadius.circular(500),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(500),
+        hoverColor: AppColors.surface,
+        onTap: () {},
+        child: Container(
+          height: 44,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            children: [
+              Icon(icon, color: Colors.white, size: 22),
+              const SizedBox(width: 14),
+              Text(
+                label,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                  fontWeight: selected ? FontWeight.bold : FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
