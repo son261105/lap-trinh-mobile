@@ -12,19 +12,26 @@ class PlayerBar extends StatelessWidget {
       color: AppColors.background,
       child: Row(
         children: [
-          Expanded(
+          const Expanded(
             child: Align(alignment: Alignment.centerLeft, child: _SongInfo()),
           ),
           Expanded(
             flex: 2,
             child: Center(
               child: ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: 560),
-                child: _ControlButtons(),
+                constraints: const BoxConstraints(maxWidth: 560),
+                child: const Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _ControlButtons(),
+                    SizedBox(height: 4),
+                    _ProgressBar(),
+                  ],
+                ),
               ),
             ),
           ),
-          Expanded(child: SizedBox()),
+          const Expanded(child: SizedBox()),
         ],
       ),
     );
@@ -181,6 +188,53 @@ class _PlayButtonState extends State<_PlayButton> {
           ),
         ),
       ),
+    );
+  }
+}
+
+const _timeStyle = TextStyle(color: AppColors.textSecondary, fontSize: 12);
+
+class _ProgressBar extends StatefulWidget {
+  const _ProgressBar();
+
+  @override
+  State<_ProgressBar> createState() => _ProgressBarState();
+}
+
+class _ProgressBarState extends State<_ProgressBar> {
+  static const double _total = 290;
+  double _value = 0;
+
+  String _format(double seconds) {
+    final m = (seconds ~/ 60).toString().padLeft(2, '0');
+    final s = (seconds.toInt() % 60).toString().padLeft(2, '0');
+    return '$m:$s';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(_format(_value), style: _timeStyle),
+        Expanded(
+          child: SliderTheme(
+            data: SliderTheme.of(context).copyWith(
+              trackHeight: 4,
+              activeTrackColor: Colors.white,
+              inactiveTrackColor: AppColors.surfaceHover,
+              thumbColor: Colors.white,
+              thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 5),
+              overlayShape: const RoundSliderOverlayShape(overlayRadius: 10),
+            ),
+            child: Slider(
+              value: _value,
+              max: _total,
+              onChanged: (v) => setState(() => _value = v),
+            ),
+          ),
+        ),
+        Text(_format(_total), style: _timeStyle),
+      ],
     );
   }
 }
