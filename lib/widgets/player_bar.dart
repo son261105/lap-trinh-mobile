@@ -31,7 +31,12 @@ class PlayerBar extends StatelessWidget {
               ),
             ),
           ),
-          const Expanded(child: SizedBox()),
+          const Expanded(
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: _RightTools(),
+            ),
+          ),
         ],
       ),
     );
@@ -234,6 +239,147 @@ class _ProgressBarState extends State<_ProgressBar> {
           ),
         ),
         Text(_format(_total), style: _timeStyle),
+      ],
+    );
+  }
+}
+
+class _RightTools extends StatelessWidget {
+  const _RightTools();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _LyricsButton(),
+        _QueueButton(),
+        SizedBox(width: 4),
+        _VolumeControl(),
+      ],
+    );
+  }
+}
+
+// Khung chữ hiện lên phía trên icon khi rê chuột vào
+class _HoverTip extends StatelessWidget {
+  final String message;
+  final Widget child;
+
+  const _HoverTip({required this.message, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: message,
+      preferBelow: false,
+      waitDuration: const Duration(milliseconds: 200),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      decoration: BoxDecoration(
+        color: AppColors.surfaceHover,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      textStyle: const TextStyle(
+        color: Colors.white,
+        fontSize: 13,
+        height: 1.5,
+      ),
+      child: child,
+    );
+  }
+}
+
+class _LyricsButton extends StatelessWidget {
+  const _LyricsButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return _HoverTip(
+      message: 'Lời bài hát',
+      child: IconButton(
+        onPressed: () {},
+        icon: const Icon(Icons.lyrics_outlined),
+        iconSize: 22,
+        color: AppColors.textSecondary,
+      ),
+    );
+  }
+}
+
+class _QueueButton extends StatefulWidget {
+  const _QueueButton();
+
+  @override
+  State<_QueueButton> createState() => _QueueButtonState();
+}
+
+class _QueueButtonState extends State<_QueueButton> {
+  bool _open = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return _HoverTip(
+      message: 'Danh sách phát',
+      child: IconButton(
+        onPressed: () {
+          setState(() => _open = !_open);
+          // TODO: hiện/ẩn danh sách các bài hát tiếp theo (làm sau)
+        },
+        icon: const Icon(Icons.queue_music),
+        iconSize: 22,
+        color: _open ? Colors.white : AppColors.textSecondary,
+      ),
+    );
+  }
+}
+
+class _VolumeControl extends StatefulWidget {
+  const _VolumeControl();
+
+  @override
+  State<_VolumeControl> createState() => _VolumeControlState();
+}
+
+class _VolumeControlState extends State<_VolumeControl> {
+  double _volume = 0.7;
+
+  IconData get _icon {
+    if (_volume == 0) return Icons.volume_off;
+    if (_volume < 0.5) return Icons.volume_down;
+    return Icons.volume_up;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _HoverTip(
+          message: 'Âm lượng',
+          child: IconButton(
+            onPressed: () => setState(() => _volume = _volume == 0 ? 0.7 : 0),
+            icon: Icon(_icon),
+            iconSize: 22,
+            color: AppColors.textSecondary,
+          ),
+        ),
+        SizedBox(
+          width: 100,
+          child: SliderTheme(
+            data: SliderTheme.of(context).copyWith(
+              trackHeight: 4,
+              activeTrackColor: Colors.white,
+              inactiveTrackColor: AppColors.surfaceHover,
+              thumbColor: Colors.white,
+              thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 5),
+              overlayShape: const RoundSliderOverlayShape(overlayRadius: 10),
+            ),
+            child: Slider(
+              value: _volume,
+              onChanged: (v) => setState(() => _volume = v),
+            ),
+          ),
+        ),
       ],
     );
   }
