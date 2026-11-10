@@ -5,6 +5,7 @@ import '../widgets/player_bar.dart';
 import '../widgets/queue_panel.dart';
 import '../widgets/sidebar.dart';
 import '../widgets/top_bar.dart';
+import 'home_page.dart';
 import 'playlist_page.dart';
 import 'simple_page.dart';
 
@@ -14,7 +15,7 @@ class HomeScreen extends StatelessWidget {
   Widget _pageFor(AppPage page) {
     switch (page) {
       case AppPage.home:
-        return const SimplePage('Trang chủ');
+        return const HomePage();
       case AppPage.mine:
         return const SimplePage('Của Tôi');
       case AppPage.favoriteSongs:
