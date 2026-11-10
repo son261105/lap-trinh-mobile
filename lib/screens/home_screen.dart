@@ -5,6 +5,7 @@ import '../widgets/player_bar.dart';
 import '../widgets/queue_panel.dart';
 import '../widgets/sidebar.dart';
 import '../widgets/top_bar.dart';
+import 'playlist_page.dart';
 import 'simple_page.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -23,7 +24,7 @@ class HomeScreen extends StatelessWidget {
       case AppPage.favoriteArtists:
         return const SimplePage('Nghệ sĩ yêu thích');
       case AppPage.playlistChill:
-        return const SimplePage('Nhạc chill');
+        return const PlaylistPage();
     }
   }
 
