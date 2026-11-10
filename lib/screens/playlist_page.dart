@@ -10,12 +10,20 @@ class _PlaylistSong {
   const _PlaylistSong(this.title, this.artist, this.image, this.duration);
 }
 
-// Dữ liệu mẫu, mày tự sửa tên bài, nghệ sĩ, ảnh, thời lượng
 const _songs = [
-  _PlaylistSong('Bài hát mẫu 1', 'Nghệ sĩ A', 'imgs/NhacChill.jpg', '04:23'),
-  _PlaylistSong('Bài hát mẫu 2', 'Nghệ sĩ A', 'imgs/NhacRemix.jpg', '04:06'),
-  _PlaylistSong('Bài hát mẫu 3', 'Nghệ sĩ B', 'imgs/NoiNayCoAnh.jpg', '02:57'),
-  _PlaylistSong('Bài hát mẫu 4', 'Nghệ sĩ C', 'imgs/NhacChill.jpg', '03:45'),
+  _PlaylistSong('Đi Về Nhà', 'Đen Vâu', 'imgs/DiVeNha.jpg', '04:23'),
+  _PlaylistSong(
+    'Nơi Này Có Anh',
+    'Sơn Tùng M-TP',
+    'imgs/NoiNayCoAnh.jpg',
+    '04:57',
+  ),
+  _PlaylistSong(
+    'Vợ Người Ta',
+    'Phan Mạnh Quỳnh',
+    'imgs/VoNguoiTa.jpg',
+    '05:45',
+  ),
 ];
 
 const _cyan = Color(0xFF00D4E8);
