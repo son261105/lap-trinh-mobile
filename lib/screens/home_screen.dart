@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import '../state/ui_state.dart';
 import '../theme/app_colors.dart';
 import '../widgets/player_bar.dart';
+import '../widgets/queue_panel.dart';
 import '../widgets/sidebar.dart';
 import '../widgets/top_bar.dart';
 
@@ -9,20 +11,20 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.background,
       body: Padding(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: Column(
           children: [
-            TopBar(),
-            SizedBox(height: 8),
+            const TopBar(),
+            const SizedBox(height: 8),
             Expanded(
               child: Row(
                 children: [
-                  Sidebar(),
-                  SizedBox(width: 8),
-                  Expanded(
+                  const Sidebar(),
+                  const SizedBox(width: 8),
+                  const Expanded(
                     child: ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                       child: ColoredBox(
@@ -36,11 +38,21 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  ValueListenableBuilder<bool>(
+                    valueListenable: queueOpen,
+                    builder: (context, open, _) {
+                      if (!open) return const SizedBox.shrink();
+                      return const Padding(
+                        padding: EdgeInsets.only(left: 8),
+                        child: QueuePanel(),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
-            SizedBox(height: 8),
-            PlayerBar(),
+            const SizedBox(height: 8),
+            const PlayerBar(),
           ],
         ),
       ),
