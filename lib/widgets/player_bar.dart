@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../state/ui_state.dart';
 import '../theme/app_colors.dart';
 
 class PlayerBar extends StatelessWidget {
@@ -306,29 +307,24 @@ class _LyricsButton extends StatelessWidget {
   }
 }
 
-class _QueueButton extends StatefulWidget {
+class _QueueButton extends StatelessWidget {
   const _QueueButton();
 
   @override
-  State<_QueueButton> createState() => _QueueButtonState();
-}
-
-class _QueueButtonState extends State<_QueueButton> {
-  bool _open = false;
-
-  @override
   Widget build(BuildContext context) {
-    return _HoverTip(
-      message: 'Danh sách phát',
-      child: IconButton(
-        onPressed: () {
-          setState(() => _open = !_open);
-          // TODO: hiện/ẩn danh sách các bài hát tiếp theo (làm sau)
-        },
-        icon: const Icon(Icons.queue_music),
-        iconSize: 22,
-        color: _open ? Colors.white : AppColors.textSecondary,
-      ),
+    return ValueListenableBuilder<bool>(
+      valueListenable: queueOpen,
+      builder: (context, open, _) {
+        return _HoverTip(
+          message: 'Danh sách phát',
+          child: IconButton(
+            onPressed: () => queueOpen.value = !open,
+            icon: const Icon(Icons.queue_music),
+            iconSize: 22,
+            color: open ? Colors.white : AppColors.textSecondary,
+          ),
+        );
+      },
     );
   }
 }
