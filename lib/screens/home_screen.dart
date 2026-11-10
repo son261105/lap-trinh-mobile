@@ -5,9 +5,27 @@ import '../widgets/player_bar.dart';
 import '../widgets/queue_panel.dart';
 import '../widgets/sidebar.dart';
 import '../widgets/top_bar.dart';
+import 'simple_page.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
+  Widget _pageFor(AppPage page) {
+    switch (page) {
+      case AppPage.home:
+        return const SimplePage('Trang chủ');
+      case AppPage.mine:
+        return const SimplePage('Của Tôi');
+      case AppPage.favoriteSongs:
+        return const SimplePage('Bài hát yêu thích');
+      case AppPage.recent:
+        return const SimplePage('Nghe gần đây');
+      case AppPage.favoriteArtists:
+        return const SimplePage('Nghệ sĩ yêu thích');
+      case AppPage.playlistChill:
+        return const SimplePage('Nhạc chill');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,16 +42,14 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   const Sidebar(),
                   const SizedBox(width: 8),
-                  const Expanded(
+                  Expanded(
                     child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
                       child: ColoredBox(
                         color: AppColors.sidebar,
-                        child: Center(
-                          child: Text(
-                            'Nội dung chính sẽ nằm ở đây',
-                            style: TextStyle(color: Colors.white54),
-                          ),
+                        child: ValueListenableBuilder<AppPage>(
+                          valueListenable: currentPage,
+                          builder: (context, page, _) => _pageFor(page),
                         ),
                       ),
                     ),

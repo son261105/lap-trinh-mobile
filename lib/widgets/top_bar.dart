@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../state/ui_state.dart';
 import '../theme/app_colors.dart';
 
 class TopBar extends StatelessWidget {
@@ -53,7 +54,7 @@ class _HomeButton extends StatelessWidget {
       child: InkWell(
         customBorder: const CircleBorder(),
         hoverColor: AppColors.surfaceHover,
-        onTap: () {},
+        onTap: () => currentPage.value = AppPage.home,
         child: const SizedBox(
           width: 40,
           height: 40,
