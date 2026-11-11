@@ -41,6 +41,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 8),
             Expanded(
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const Sidebar(),
                   const SizedBox(width: 8),
