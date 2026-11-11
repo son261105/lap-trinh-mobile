@@ -26,6 +26,10 @@ class HomePage extends StatelessWidget {
             _SectionHeader('Bảng Xếp Hạng'),
             SizedBox(height: 16),
             _ChartsRow(),
+            SizedBox(height: 32),
+            _SectionHeader('Nghệ sĩ thịnh hành', action: 'Hiện tất cả'),
+            SizedBox(height: 16),
+            _ArtistsRow(),
           ],
         ),
       ),
@@ -336,6 +340,128 @@ class _ChartRow extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+// Nghệ sĩ yêu thích
+
+class _Artist {
+  final String name;
+  final Color color;
+  final String? image;
+
+  const _Artist(this.name, this.color, {this.image});
+}
+
+const _artists = [
+  _Artist('Vũ.', Color(0xFFE11D48), image: 'imgs/NgheSiVu.jpg'),
+  _Artist('AMEE', Color(0xFFE11D48), image: 'imgs/AnhNgheSiAmee.jpg'),
+  _Artist('SOOBIN', Color(0xFFE11D48), image: 'imgs/NgheSiSoobin.jpg'),
+  _Artist('Sơn Tùng M-TP', Color(0xFFE11D48), image: 'imgs/NgheSiSontung.jpg'),
+  _Artist('Phan Mạnh Quỳnh', Color(0xFFE11D48), image: 'imgs/NgheSiPMQ.jpg'),
+  _Artist('Đen Vâu', Color(0xFFE11D48), image: 'imgs/NgheSiDenVau.jpg'),
+];
+
+class _ArtistsRow extends StatelessWidget {
+  const _ArtistsRow();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (var i = 0; i < _artists.length; i++) ...[
+          if (i > 0) const SizedBox(width: 12),
+          Expanded(child: _ArtistCard(_artists[i])),
+        ],
+      ],
+    );
+  }
+}
+
+class _ArtistCard extends StatefulWidget {
+  final _Artist artist;
+
+  const _ArtistCard(this.artist);
+
+  @override
+  State<_ArtistCard> createState() => _ArtistCardState();
+}
+
+class _ArtistCardState extends State<_ArtistCard> {
+  bool _hover = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final artist = widget.artist;
+
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hover = true),
+      onExit: (_) => setState(() => _hover = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: _hover ? AppColors.surface : Colors.transparent,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                AspectRatio(
+                  aspectRatio: 1,
+                  child: CoverArt(
+                    color: artist.color,
+                    image: artist.image,
+                    icon: Icons.person,
+                    circle: true,
+                  ),
+                ),
+                Positioned(
+                  right: 4,
+                  bottom: 4,
+                  child: AnimatedOpacity(
+                    opacity: _hover ? 1 : 0,
+                    duration: const Duration(milliseconds: 150),
+                    child: Container(
+                      width: 44,
+                      height: 44,
+                      decoration: const BoxDecoration(
+                        color: _cyan,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.play_arrow,
+                        color: Colors.black,
+                        size: 26,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 14),
+            Text(
+              artist.name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 4),
+            const Text(
+              'Nghệ sĩ',
+              style: TextStyle(color: AppColors.textSecondary, fontSize: 12),
+            ),
+          ],
         ),
       ),
     );
