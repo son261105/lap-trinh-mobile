@@ -445,69 +445,73 @@ class _ArtistCardState extends State<_ArtistCard> {
     final artist = widget.artist;
 
     return MouseRegion(
+      cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => _hover = true),
       onExit: (_) => setState(() => _hover = false),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 150),
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: _hover ? AppColors.surface : Colors.transparent,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
-              children: [
-                AspectRatio(
-                  aspectRatio: 1,
-                  child: CoverArt(
-                    color: artist.color,
-                    image: artist.image,
-                    icon: Icons.person,
-                    circle: true,
+      child: GestureDetector(
+        onTap: () => currentPage.value = AppPage.artist,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 150),
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: _hover ? AppColors.surface : Colors.transparent,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                children: [
+                  AspectRatio(
+                    aspectRatio: 1,
+                    child: CoverArt(
+                      color: artist.color,
+                      image: artist.image,
+                      icon: Icons.person,
+                      circle: true,
+                    ),
                   ),
-                ),
-                Positioned(
-                  right: 4,
-                  bottom: 4,
-                  child: AnimatedOpacity(
-                    opacity: _hover ? 1 : 0,
-                    duration: const Duration(milliseconds: 150),
-                    child: Container(
-                      width: 44,
-                      height: 44,
-                      decoration: const BoxDecoration(
-                        color: _cyan,
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(
-                        Icons.play_arrow,
-                        color: Colors.black,
-                        size: 26,
+                  Positioned(
+                    right: 4,
+                    bottom: 4,
+                    child: AnimatedOpacity(
+                      opacity: _hover ? 1 : 0,
+                      duration: const Duration(milliseconds: 150),
+                      child: Container(
+                        width: 44,
+                        height: 44,
+                        decoration: const BoxDecoration(
+                          color: _cyan,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.play_arrow,
+                          color: Colors.black,
+                          size: 26,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 14),
-            Text(
-              artist.name,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
+                ],
               ),
-            ),
-            const SizedBox(height: 4),
-            const Text(
-              'Nghệ sĩ',
-              style: TextStyle(color: AppColors.textSecondary, fontSize: 12),
-            ),
-          ],
+              const SizedBox(height: 14),
+              Text(
+                artist.name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 4),
+              const Text(
+                'Nghệ sĩ',
+                style: TextStyle(color: AppColors.textSecondary, fontSize: 12),
+              ),
+            ],
+          ),
         ),
       ),
     );

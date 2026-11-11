@@ -13,6 +13,7 @@ enum AppPage {
   favoriteArtists,
   playlistChill,
   song,
+  artist,
 }
 
 /// Trang đang được chọn
