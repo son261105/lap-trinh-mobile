@@ -30,6 +30,10 @@ class HomePage extends StatelessWidget {
             _SectionHeader('Nghệ sĩ thịnh hành', action: 'Hiện tất cả'),
             SizedBox(height: 16),
             _ArtistsRow(),
+            SizedBox(height: 32),
+            _SectionHeader('Album Hot', action: 'Thêm'),
+            SizedBox(height: 16),
+            _AlbumsRow(),
           ],
         ),
       ),
@@ -460,6 +464,149 @@ class _ArtistCardState extends State<_ArtistCard> {
             const Text(
               'Nghệ sĩ',
               style: TextStyle(color: AppColors.textSecondary, fontSize: 12),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ===== Album hot =====
+
+class _Album {
+  final String name;
+  final String artist;
+  final Color color;
+  final String? image;
+
+  const _Album(this.name, this.artist, this.color, {this.image});
+}
+
+const _albums = [
+  _Album(
+    'M-TP',
+    'Sơn Tùng M-TP',
+    Color(0xFF334155),
+    image: 'imgs/AlbumMTP.jpg',
+  ),
+  _Album(
+    'Đánh Đổi',
+    'Obito',
+    Color(0xFF0F766E),
+    image: 'imgs/AlbumDanhDoi.jpg',
+  ),
+  _Album(
+    'Dữ Liệu Quý',
+    'Dương Domic',
+    Color(0xFFB45309),
+    image: 'imgs/AlbumDLQ.jpg',
+  ),
+  _Album('Bật Nó lên', 'SOOBIN', Color(0xFF9F1239), image: 'imgs/AlbumBNL.jpg'),
+  _Album('99%', ' RPT MCK', Color(0xFF6D28D9), image: 'imgs/Album99.jpg'),
+];
+
+class _AlbumsRow extends StatelessWidget {
+  const _AlbumsRow();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (var i = 0; i < _albums.length; i++) ...[
+          if (i > 0) const SizedBox(width: 24),
+          Expanded(child: _AlbumCard(_albums[i])),
+        ],
+      ],
+    );
+  }
+}
+
+class _AlbumCard extends StatefulWidget {
+  final _Album album;
+
+  const _AlbumCard(this.album);
+
+  @override
+  State<_AlbumCard> createState() => _AlbumCardState();
+}
+
+class _AlbumCardState extends State<_AlbumCard> {
+  bool _hover = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final album = widget.album;
+
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _hover = true),
+      onExit: (_) => setState(() => _hover = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: _hover ? AppColors.surface : Colors.transparent,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                AspectRatio(
+                  aspectRatio: 1,
+                  child: CoverArt(
+                    color: album.color,
+                    image: album.image,
+                    icon: Icons.album,
+                    radius: 8,
+                  ),
+                ),
+                Positioned(
+                  right: 6,
+                  bottom: 6,
+                  child: AnimatedOpacity(
+                    opacity: _hover ? 1 : 0,
+                    duration: const Duration(milliseconds: 150),
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: const BoxDecoration(
+                        color: _cyan,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.play_arrow,
+                        color: Colors.black,
+                        size: 24,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Text(
+              album.name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              album.artist,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                color: AppColors.textSecondary,
+                fontSize: 12,
+              ),
             ),
           ],
         ),
