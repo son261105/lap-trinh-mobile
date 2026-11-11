@@ -8,6 +8,7 @@ import '../widgets/top_bar.dart';
 import 'home_page.dart';
 import 'playlist_page.dart';
 import 'simple_page.dart';
+import 'song_page.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -26,6 +27,8 @@ class HomeScreen extends StatelessWidget {
         return const SimplePage('Nghệ sĩ yêu thích');
       case AppPage.playlistChill:
         return const PlaylistPage();
+      case AppPage.song:
+        return const SongPage();
     }
   }
 

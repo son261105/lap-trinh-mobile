@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../models/song.dart';
+import '../state/ui_state.dart';
 import '../theme/app_colors.dart';
 import '../widgets/app_footer.dart';
 import '../widgets/cover_art.dart';
@@ -85,8 +87,15 @@ class _ChartSong {
   final String artist;
   final Color color;
   final String? image;
+  final List<String> artistImages;
 
-  const _ChartSong(this.title, this.artist, this.color, {this.image});
+  const _ChartSong(
+    this.title,
+    this.artist,
+    this.color, {
+    this.image,
+    this.artistImages = const [],
+  });
 }
 
 class _Chart {
@@ -104,30 +113,35 @@ const _charts = [
       'Nicole Nguyễn, Tommy Tèo',
       Color(0xFF3B82F6),
       image: 'imgs/GaiTayGocViet.jpg',
+      artistImages: ['imgs/NicoleNguyen.jpg', 'imgs/TommyTeo.jpg'],
     ),
     _ChartSong(
       'Anh Vẫn Ở Đây',
       'Quang Đăng Trần',
       Color(0xFF8B5CF6),
       image: 'imgs/AnhVanODay.jpg',
+      artistImages: ['imgs/QuangDangTran.jpg'],
     ),
     _ChartSong(
       'Chờ Chút',
       'CONGB',
       Color(0xFFEC4899),
       image: 'imgs/ChoChut.jpg',
+      artistImages: ['imgs/CONGB.jpg'],
     ),
     _ChartSong(
       'Để Dành cho Em',
       'Dangrangto',
       Color(0xFF14B8A6),
       image: 'imgs/DeDanhChoEm.jpg',
+      artistImages: ['imgs/Dangrangto.jpg'],
     ),
     _ChartSong(
       'Xương Rồng',
       'Dangrangto',
       Color(0xFFF59E0B),
       image: 'imgs/XuongRong.jpg',
+      artistImages: ['imgs/Dangrangto.jpg'],
     ),
   ]),
   _Chart('Top Nhạc Việt', Color(0xFF45472A), [
@@ -136,30 +150,35 @@ const _charts = [
       'OSAD, Hà An Huy',
       Color(0xFF6366F1),
       image: 'imgs/NhuMotNguoiDung.jpg',
+      artistImages: ['imgs/OSAD.jpg', 'imgs/HaAnHuy.jpg'],
     ),
     _ChartSong(
       'Tìm Em',
       'Hngle, Bảo Anh',
       Color(0xFF0EA5E9),
       image: 'imgs/TimEm.jpg',
+      artistImages: ['imgs/AnhHngle.jpg', 'imgs/BaoAnh.jpg'],
     ),
     _ChartSong(
-      ' Lưu Niên',
+      'Lưu Niên',
       'Jack - 97',
       Color(0xFFEF4444),
       image: 'imgs/LuuNien.jpg',
+      artistImages: ['imgs/Jack.jpg'],
     ),
     _ChartSong(
       'Chờ Chút',
       'CONGB',
       Color(0xFF22C55E),
       image: 'imgs/ChoChut.jpg',
+      artistImages: ['imgs/CONGB.jpg'],
     ),
     _ChartSong(
       'Thế Nào Là Đúng?',
       'Nghệ sĩ K',
       Color(0xFFD946EF),
       image: 'imgs/TheNaoLaDung.jpg',
+      artistImages: ['imgs/NgheSiK.jpg'],
     ),
   ]),
 ];
@@ -293,7 +312,27 @@ class _ChartRow extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
         hoverColor: Colors.white10,
-        onTap: () {},
+        onTap: () {
+          final names = song.artist.split(',').map((e) => e.trim()).toList();
+          selectedSong.value = Song(
+            title: song.title,
+            artists: [
+              for (var i = 0; i < names.length; i++)
+                Artist(
+                  name: names[i],
+                  followers: 4524,
+                  color: song.color,
+                  image: i < song.artistImages.length
+                      ? song.artistImages[i]
+                      : null,
+                ),
+            ],
+            color: song.color,
+            image: song.image,
+            likes: 47342,
+          );
+          currentPage.value = AppPage.song;
+        },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
           child: Row(
