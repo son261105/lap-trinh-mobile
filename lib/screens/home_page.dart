@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
+import '../widgets/app_footer.dart';
 import '../widgets/cover_art.dart';
 
 const _cyan = Color(0xFF00D4E8);
@@ -34,6 +35,8 @@ class HomePage extends StatelessWidget {
             _SectionHeader('Album Hot', action: 'Thêm'),
             SizedBox(height: 16),
             _AlbumsRow(),
+            SizedBox(height: 48),
+            AppFooter(),
           ],
         ),
       ),
